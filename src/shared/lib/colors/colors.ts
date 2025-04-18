@@ -1,16 +1,17 @@
 import {StatusBarStyle} from 'react-native';
 
 export interface Theme {
-  barStyle: StatusBarStyle,
-  background: string,
-  card: string,
-  text: string,
-  subtext: string,
-  border: string,
-  buttonBackground: string,
-  buttonText: string,
-  inputBackground: string,
-  inputText: string,
+  barStyle: StatusBarStyle;
+  background: string;
+  card: string;
+  text: string;
+  subtext: string;
+  border: string;
+  buttonBackground: string;
+  buttonText: string;
+  inputBackground: string;
+  inputText: string;
+  inputError: string;
 }
 
 export const lightTheme: Theme = {
@@ -24,6 +25,7 @@ export const lightTheme: Theme = {
   buttonText: '#000000',
   inputBackground: '#FFFFFF',
   inputText: '#000000',
+  inputError: '#D32F2F',
 };
 
 export const darkTheme: Theme = {
@@ -37,4 +39,5 @@ export const darkTheme: Theme = {
   buttonText: '#FFFFFF',
   inputBackground: '#111111',
   inputText: '#FFFFFF',
+  inputError: '#EF9A9A',
 };
