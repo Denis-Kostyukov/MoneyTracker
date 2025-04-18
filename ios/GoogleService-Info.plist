@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.money.tracker</string>
+	<string>com.money.tracker.testapp</string>
 	<key>PROJECT_ID</key>
 	<string>moneytracker-fac0f</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:446565395538:ios:82f892182ae6adb90e838b</string>
+	<string>1:446565395538:ios:293f40d5af2769850e838b</string>
 </dict>
 </plist>

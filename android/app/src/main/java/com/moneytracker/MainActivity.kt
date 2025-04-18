@@ -1,4 +1,4 @@
-package com.moneytracker
+package com.money.tracker.testapp
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

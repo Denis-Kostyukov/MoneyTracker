@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:446565395538:android:a21ba6db8516bb8d0e838b",
+        "mobilesdk_app_id": "1:446565395538:android:56fb5bbd29e6cbc40e838b",
         "android_client_info": {
-          "package_name": "com.money.tracker"
+          "package_name": "com.money.tracker.testapp"
         }
       },
       "oauth_client": [],
