@@ -1,17 +1,25 @@
 import {FC} from 'react';
-import {View} from 'react-native';
+import {KeyboardAvoidingView, View} from 'react-native';
 import {CustomButton, CustomInput, ErrorText} from 'shared/components';
 import getStyles from 'features/auth/sign-in/ui/SignIn.styles.ts';
 import {
+  AllSignInFields,
   defaultValuesSignIn,
   getSignInScheme,
   SignInField,
 } from 'features/auth/sign-in/model/SignIn.form.ts';
 import {Controller, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AuthStackParamList, AuthStackScreen} from 'app/navigation';
+import {useAuth} from 'features/auth/api';
+import {FirebaseErrorMessage, isFirebaseError} from 'app/firebase';
+import Toast from 'react-native-toast-message';
 
 const SignIn: FC = () => {
   const scheme = getSignInScheme();
+  const {navigate} = useNavigation<NavigationProp<AuthStackParamList>>();
+  const {isLoading, signIn} = useAuth();
 
   const {
     control,
@@ -23,10 +31,23 @@ const SignIn: FC = () => {
     defaultValues: defaultValuesSignIn,
   });
 
+  const onSubmit = async ({email, password}: AllSignInFields) => {
+    try {
+      await signIn(email, password);
+    } catch (error: unknown) {
+      if (isFirebaseError(error)) {
+        Toast.show({
+          type: 'error',
+          text1: FirebaseErrorMessage[error.code],
+        });
+      }
+    }
+  };
+
   const styles = getStyles();
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
       <View>
         <Controller
           control={control}
@@ -71,13 +92,19 @@ const SignIn: FC = () => {
           text={errors[SignInField.PASSWORD]?.message}
         />
       </View>
-      <CustomButton title={'Sign in'} onPress={() => {}} />
+      <CustomButton
+        title={'Sign in'}
+        onPress={handleSubmit(onSubmit)}
+        isLoading={isLoading}
+      />
       <CustomButton
         variant={'text'}
         title={'Do not have an account?'}
-        onPress={() => {}}
+        onPress={() => {
+          navigate(AuthStackScreen.SIGN_UP);
+        }}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

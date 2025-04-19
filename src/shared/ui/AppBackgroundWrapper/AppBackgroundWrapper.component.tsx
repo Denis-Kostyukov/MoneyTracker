@@ -4,11 +4,12 @@ import {defaultStyles} from 'shared/lib';
 import {useTheme} from 'shared/providers';
 
 const AppBackgroundWrapper: FC<{children: ReactNode}> = ({children}) => {
-  const {theme} = useTheme()
+  const {theme} = useTheme();
 
   return (
-    <SafeAreaView style={[defaultStyles.flex, {backgroundColor: theme.background}]}>
-      <StatusBar barStyle={theme.barStyle} backgroundColor={theme.background}/>
+    <SafeAreaView
+      style={[defaultStyles.flex, {backgroundColor: theme.background}]}>
+      <StatusBar barStyle={theme.barStyle} backgroundColor={theme.background} />
       {children}
     </SafeAreaView>
   );

@@ -2,6 +2,11 @@ import * as yup from 'yup';
 
 const MIN_LENGTH_PASSWORD = 6;
 
+interface AllSignInFields {
+  email: string;
+  password: string;
+}
+
 enum SignInField {
   EMAIL = 'email',
   PASSWORD = 'password',
@@ -26,5 +31,7 @@ const getSignInScheme = () =>
       )
       .required('Password is required'),
   });
+
+export type {AllSignInFields};
 
 export {getSignInScheme, defaultValuesSignIn, SignInField};
