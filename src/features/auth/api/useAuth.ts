@@ -73,8 +73,6 @@ const useAuth = () => {
           expenses: 0,
         };
 
-        console.log('here');
-
         transaction.set(
           doc(collection(firestore, 'users', user.uid, 'bills')),
           {
@@ -97,7 +95,6 @@ const useAuth = () => {
             category,
           );
         });
-        console.log('here');
       });
     } catch (error: unknown) {
       console.log(error);

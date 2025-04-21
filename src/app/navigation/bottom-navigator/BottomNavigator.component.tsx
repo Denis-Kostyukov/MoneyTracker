@@ -5,6 +5,7 @@ import {Settings} from 'screens/settings';
 import {Income} from 'screens/income';
 import {Expenses} from 'screens/expenses';
 import {getScreenOptions} from 'app/navigation/bottom-navigator/config/BottomNavigator.config.tsx';
+import {CustomHeader} from 'app/navigation/bottom-navigator/components';
 
 const Tab = createBottomTabNavigator<BottomNavigatorParamList>();
 
@@ -14,9 +15,21 @@ const BottomNavigator: FC = () => {
       screenOptions={({route}) => ({
         ...getScreenOptions({route}),
       })}>
-      <Tab.Screen name={BottomNavigatorTab.INCOME} component={Income} />
-      <Tab.Screen name={BottomNavigatorTab.EXPENSES} component={Expenses} />
-      <Tab.Screen name={BottomNavigatorTab.SETTINGS} component={Settings} />
+      <Tab.Screen
+        name={BottomNavigatorTab.INCOME}
+        component={Income}
+        options={{header: () => <CustomHeader />}}
+      />
+      <Tab.Screen
+        name={BottomNavigatorTab.EXPENSES}
+        component={Expenses}
+        options={{header: () => <CustomHeader />}}
+      />
+      <Tab.Screen
+        name={BottomNavigatorTab.SETTINGS}
+        component={Settings}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 };

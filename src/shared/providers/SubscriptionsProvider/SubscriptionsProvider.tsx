@@ -4,6 +4,7 @@ import defaultStyles from 'shared/lib/styles/defaultStyles.ts';
 import {SubscriptionsContextProps} from 'shared/providers/SubscriptionsProvider/SubscriptionsProvider.types.ts';
 import {useFinances} from 'features/finances';
 import {Transaction} from 'entities/finances';
+import {useStateStore} from 'shared/store/state-store';
 
 export const SubscriptionsContext = createContext<
   SubscriptionsContextProps | undefined
@@ -20,11 +21,12 @@ const SubscriptionsProvider: FC<SubscriptionsProviderProps> = ({children}) => {
     subscribeOnTransactionsUpdates,
   } = useFinances();
 
+  const {activeBillId} = useStateStore();
+
   const categoriesSubscription = useRef<(() => void) | null>(null);
   const billsSubscription = useRef<(() => void) | null>(null);
   const transactionsSubscription = useRef<(() => void) | null>(null);
 
-  const [activeBillId, setActiveBillId] = useState<string | null>(null);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
@@ -52,7 +54,7 @@ const SubscriptionsProvider: FC<SubscriptionsProviderProps> = ({children}) => {
   }, []);
 
   return (
-    <SubscriptionsContext.Provider value={{transactions, setActiveBillId}}>
+    <SubscriptionsContext.Provider value={{transactions}}>
       <View style={defaultStyles.flex}>{children}</View>
     </SubscriptionsContext.Provider>
   );

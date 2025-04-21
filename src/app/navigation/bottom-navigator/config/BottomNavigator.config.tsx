@@ -25,7 +25,7 @@ export const getScreenOptions = ({
   }, []);
 
   return {
-    headerShown: false,
+    headerShown: true,
     sceneStyle: {
       backgroundColor: theme.background,
     },
