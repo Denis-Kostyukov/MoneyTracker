@@ -1,11 +1,52 @@
-import {useState} from 'react';
-import {auth} from 'app/firebase';
+import {useMemo, useState} from 'react';
+import {auth, firestore} from 'app/firebase';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {useUserStore} from 'shared/store/user-store';
+import {
+  collection,
+  doc,
+  runTransaction,
+} from '@react-native-firebase/firestore';
+import {FirebaseBill, FirebaseCategory} from 'entities/finances';
 
 const useAuth = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const {setUser} = useUserStore();
+
+  const defaultCategories = useMemo((): FirebaseCategory[] => {
+    return [
+      {
+        type: 'income',
+        name: 'Salary',
+        color: 'blue',
+      },
+      {
+        type: 'income',
+        name: 'Gift',
+        color: 'pink',
+      },
+      {
+        type: 'income',
+        name: 'Other',
+        color: 'green',
+      },
+      {
+        type: 'expenses',
+        name: 'Health',
+        color: 'red',
+      },
+      {
+        type: 'expenses',
+        name: 'Leisure',
+        color: 'turquoise',
+      },
+      {
+        type: 'expenses',
+        name: 'Other',
+        color: 'green',
+      },
+    ];
+  }, []);
 
   const signIn = async (email: string, password: string) => {
     try {
@@ -21,8 +62,45 @@ const useAuth = () => {
   const signUp = async (email: string, password: string) => {
     try {
       setIsLoading(true);
-      await auth.createUserWithEmailAndPassword(email, password);
+      const {user} = await auth.createUserWithEmailAndPassword(email, password);
+
+      await runTransaction(firestore, async transaction => {
+        transaction.set(doc(firestore, 'users', user.uid), {});
+        const bill: Omit<FirebaseBill, 'name'> = {
+          currencyCode: 'USD',
+          currencySymbol: '$',
+          income: 0,
+          expenses: 0,
+        };
+
+        console.log('here');
+
+        transaction.set(
+          doc(collection(firestore, 'users', user.uid, 'bills')),
+          {
+            name: 'Total',
+            ...bill,
+          },
+        );
+
+        transaction.set(
+          doc(collection(firestore, 'users', user.uid, 'bills')),
+          {
+            name: 'Main',
+            ...bill,
+          },
+        );
+
+        defaultCategories.forEach(category => {
+          transaction.set(
+            doc(collection(firestore, 'users', user.uid, 'categories')),
+            category,
+          );
+        });
+        console.log('here');
+      });
     } catch (error: unknown) {
+      console.log(error);
       throw error;
     } finally {
       setIsLoading(false);
@@ -52,6 +130,8 @@ const useAuth = () => {
       setUser({
         email: user.email!,
         name: user.displayName || user.email!,
+        categories: [],
+        bills: [],
       });
     } catch (error: unknown) {
       throw error;

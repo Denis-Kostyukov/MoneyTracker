@@ -17,9 +17,6 @@ export const useUserStore = createSelectors(
       {
         storage: zustandMMKVStorage,
         name: 'user-storage',
-        partialize: state => ({
-          user: state.user,
-        }),
       },
     ),
   ),
