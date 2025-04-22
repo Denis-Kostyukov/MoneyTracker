@@ -20,7 +20,6 @@ const SubscriptionsProvider: FC<SubscriptionsProviderProps> = ({children}) => {
     subscribeOnBillsUpdates,
     subscribeOnTransactionsUpdates,
   } = useFinances();
-
   const {activeBillId} = useStateStore();
 
   const categoriesSubscription = useRef<(() => void) | null>(null);

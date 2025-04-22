@@ -23,7 +23,7 @@ const useAuth = () => {
       {
         type: 'income',
         name: 'Gift',
-        color: 'pink',
+        color: 'deeppink',
       },
       {
         type: 'income',
@@ -123,7 +123,6 @@ const useAuth = () => {
         setUser(null);
         return;
       }
-
       setUser({
         email: user.email!,
         name: user.displayName || user.email!,

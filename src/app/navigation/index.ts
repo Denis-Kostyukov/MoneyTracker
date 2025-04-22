@@ -14,10 +14,17 @@ import {
   BottomNavigatorParamList,
 } from 'app/navigation/bottom-navigator/BottomNavigator.types.ts';
 import BottomNavigator from 'app/navigation/bottom-navigator/BottomNavigator.component.tsx';
+import {
+  StandaloneStackScreen,
+  StandaloneStackParamList,
+} from 'app/navigation/stacks/standalone/StandaloneStack.types.ts';
+import {StandaloneStack} from 'app/navigation/stacks/standalone/StandaloneStack.component.tsx';
+
 export type {
   AppNavigatorParamList,
   AuthStackParamList,
   BottomNavigatorParamList,
+  StandaloneStackParamList,
 };
 
 export {
@@ -28,4 +35,6 @@ export {
   AuthStack,
   BottomNavigatorTab,
   BottomNavigator,
+  StandaloneStackScreen,
+  StandaloneStack,
 };

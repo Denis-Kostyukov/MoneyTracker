@@ -24,6 +24,7 @@
     "react-hook-form": "^7.55.0",
     "react-native": "0.76.5",
     "react-native-config": "^1.5.5",
+    "react-native-date-picker": "^5.0.12",
     "react-native-gesture-handler": "^2.25.0",
     "react-native-mmkv": "^3.2.0",
     "react-native-safe-area-context": "^5.4.0",

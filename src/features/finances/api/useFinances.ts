@@ -32,7 +32,7 @@ const useFinances = () => {
         });
         setUser({
           ...user!,
-          categories,
+          categories: categories,
         });
       },
     );
@@ -70,9 +70,11 @@ const useFinances = () => {
       snapshot => {
         if (!snapshot) return;
         const transactions: Transaction[] = [];
+        const isTotal =
+          user?.bills.find(item => item.id === billId)?.name === 'Total';
         snapshot.forEach(transactionSnapshot => {
           const data = transactionSnapshot.data() as FirebaseTransaction;
-          if (data.billId === billId) {
+          if (isTotal || data.billId === billId) {
             transactions.push({
               ...data,
               date: data.date.toDate(),
